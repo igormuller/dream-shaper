@@ -6,6 +6,7 @@ use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Http\Resources\CourseResource;
 use App\Http\Resources\StudentResource;
+use App\Models\Course;
 use App\Models\Student;
 use Illuminate\Http\Response;
 
@@ -60,5 +61,21 @@ class StudentController extends Controller
     public function courses(Student $student)
     {
         return response()->json(CourseResource::collection($student->courses));
+    }
+
+    /**
+     * Display the courses for the specified student.
+     */
+    public function listByCourse(Course $course)
+    {
+        $studentsThisCourse = Student::whereHas('courses', function ($query) use ($course) {
+            $query->where('course_id', $course->id);
+        })->get();
+
+        if ($studentsThisCourse->isEmpty()) {
+            return response()->json(StudentResource::collection(Student::all()));
+        }
+        $students = Student::whereNotIn('id', $studentsThisCourse->pluck('id')->all())->get();
+        return response()->json(StudentResource::collection($students));
     }
 }

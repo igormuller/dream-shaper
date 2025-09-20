@@ -6,8 +6,9 @@ use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Http\Resources\CourseCollection;
 use App\Http\Resources\CourseResource;
-use App\Http\Resources\StudentResource;
+use App\Http\Resources\CourseStudentResource;
 use App\Models\Course;
+use App\Models\Student;
 use Illuminate\Http\Response;
 
 class CourseController extends Controller
@@ -60,6 +61,11 @@ class CourseController extends Controller
      */
     public function students(Course $course)
     {
-        return response()->json(StudentResource::collection($course->students));
+        return response()->json(CourseStudentResource::collection($course->students));
+    }
+
+    public function enrollStudent(Course $course, Student $student)
+    {
+        //
     }
 }

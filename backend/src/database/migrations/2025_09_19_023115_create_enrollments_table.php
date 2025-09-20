@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
             $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
             $table->integer('progress_percentage')->default(0);
-            $table->date('enrollment_date');
+            $table->date('enrollment_date')->default(now());
             $table->date('completion_date')->nullable();
             $table->timestamps();
         });

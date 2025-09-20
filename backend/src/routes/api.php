@@ -18,7 +18,8 @@ Route::get('/', function () {
 
 Route::apiResource('courses', CourseController::class);
 Route::apiResource('students', StudentController::class)->except(['destroy']);
-Route::apiResource('enrollments', EnrollmentController::class)->only(['store']);
+Route::apiResource('enrollments', EnrollmentController::class)->only(['store', 'update']);
 
 Route::get('courses/{course}/students', [CourseController::class, 'students']);
 Route::get('students/{student}/courses', [StudentController::class, 'courses']);
+Route::get('students-by-course/{course}', [StudentController::class, 'listByCourse']);
