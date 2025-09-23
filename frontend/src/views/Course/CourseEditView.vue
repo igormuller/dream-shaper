@@ -25,8 +25,7 @@
           />
           <p class="text-sm text-red-600" v-if="errors.duration_hours">{{ errors.duration_hours[0] }}</p>
         </div>
-        <button @click="save()"
-          class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
+        <button-default @click="save()">Salvar</button-default>
       </div>
     </div>
 
@@ -38,6 +37,7 @@ import { onMounted, ref } from "vue";
 import { getCourseById, updateCourse } from "@/services/courseService";
 import {  useRouter } from "vue-router";
 import { useUiStore } from "@/stores/ui";
+import ButtonDefault from "@/components/ButtonDefault.vue";
 
 const ui = useUiStore();
 const props = defineProps(['id']);

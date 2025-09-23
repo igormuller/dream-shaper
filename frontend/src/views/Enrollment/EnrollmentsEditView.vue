@@ -10,7 +10,6 @@
         <p><strong>CPF:</strong> {{ enroll.student.cpf }}</p>
       </div>
 
-      {{ enroll }}
       <div class="max-w-sm">
         <div class="mb-5">
           <label for="progress_percentage" class="block mb-2 text-sm font-medium text-gray-900">Duração:</label>
