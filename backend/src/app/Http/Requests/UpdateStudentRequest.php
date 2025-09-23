@@ -25,7 +25,7 @@ class UpdateStudentRequest extends FormRequest
         return [
             'name' => 'sometimes|required|string|max:255',
             'email' => ['sometimes', 'required', 'email', Rule::unique('students', 'email')->ignoreModel($this->student)],
-            'cpf' => ['sometimes', 'required', 'string', 'size:11', Rule::unique('students', 'cpf')->ignoreModel($this->student)],
+            'cpf' => ['sometimes', 'required', 'string', 'size:14', Rule::unique('students', 'cpf')->ignoreModel($this->student)],
         ];
     }
 }

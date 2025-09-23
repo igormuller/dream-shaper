@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Http\Resources\CourseResource;
+use App\Http\Resources\StudentCollection;
+use App\Http\Resources\StudentCourseResource;
 use App\Http\Resources\StudentResource;
 use App\Models\Course;
 use App\Models\Student;
@@ -17,7 +19,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return response()->json(StudentResource::collection(Student::all()));
+        return response()->json(new StudentCollection(Student::paginate(5)));
     }
 
     /**
@@ -60,7 +62,7 @@ class StudentController extends Controller
      */
     public function courses(Student $student)
     {
-        return response()->json(CourseResource::collection($student->courses));
+        return response()->json(StudentCourseResource::collection($student->courses));
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class Enrollment extends Model
@@ -16,5 +18,33 @@ class Enrollment extends Model
     public function course()
     {
         return $this->belongsTo(Course::class);
+    }
+
+    protected $casts = [
+        'enrollment_date' => 'date',
+        'completion_date' => 'date',
+    ];
+
+    protected function enrollmentDate(): Attribute
+    {
+        return Attribute::make(
+            set: function ($value) {
+                if (strpos($value, '/')) {
+                    return Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+                }
+                return $value;
+            }
+        );
+    }
+
+    protected function completionDate(): Attribute
+    {
+        return Attribute::make(
+            set: function ($value) {
+                if (strpos($value, '/'))
+                    return Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+                return $value;
+            }
+        );
     }
 }

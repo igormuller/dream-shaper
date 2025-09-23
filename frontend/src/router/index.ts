@@ -1,11 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import CoursesView from '@/views/Course/CoursesView.vue'
-import StudentsView from '@/views/StudentsView.vue'
-import EnrollmentsView from '@/views/EnrollmentsView.vue'
 import CourseDetailView from '@/views/Course/CourseDetailView.vue'
 import CourseEditView from '@/views/Course/CourseEditView.vue'
 import CourseCreateView from '@/views/Course/CourseCreateView.vue'
+import StudentsView from '@/views/Student/StudentsView.vue'
+import StudentDetailView from '@/views/Student/StudentDetailView.vue'
+import StudentEditView from '@/views/Student/StudentEditView.vue'
+import StudentCreateView from '@/views/Student/StudentCreateView.vue'
+import EnrollmentsEditView from '@/views/Enrollment/EnrollmentsEditView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -48,13 +51,32 @@ const router = createRouter({
     },
     {
       path: '/students',
-      name: 'Students',
+      name: 'students-list',
       component: StudentsView,
     },
     {
-      path: '/enrollments',
-      name: 'Enrollments',
-      component: EnrollmentsView,
+      path: '/students/:id',
+      name: 'student-detail',
+      component: StudentDetailView,
+      props: true,
+    },
+    {
+      path: '/students/:id/edit',
+      name: 'student-edit',
+      component: StudentEditView,
+      props: true,
+    },
+    {
+      path: '/students/create',
+      name: 'new-student',
+      component: StudentCreateView,
+      props: true,
+    },
+    {
+      path: '/enrollments/:id',
+      name: 'enrollments-edit',
+      component: EnrollmentsEditView,
+      props: true,
     },
   ],
 })

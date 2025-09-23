@@ -4,16 +4,37 @@ import { createApp } from 'vue'
 import Toast, { POSITION } from "vue-toastification";
 import App from './App.vue'
 import router from './router'
+import { createPinia } from 'pinia';
 import './assets/main.css'
 import "vue-toastification/dist/index.css";
 
 const app = createApp(App)
 
+// Create Pinia instance
+const pinia = createPinia();
+app.use(pinia);
+
+// Use the router instance
 app.use(router)
 
-app.use(Toast, {
-    // Setting the global default position
-    position: POSITION.TOP_RIGHT
-});
+// Toastification options
+const options = {
+  position: POSITION.TOP_RIGHT,
+  timeout: 3000,
+  closeOnClick: true,
+  pauseOnFocusLoss: true,
+  pauseOnHover: true,
+  draggable: true,
+  draggablePercent: 0.6,
+  showCloseButtonOnHover: false,
+  hideProgressBar: false,
+  closeButton: "button",
+  maxToasts: 5,
+  newestOnTop: true,
+  icon: true,
+  rtl: false,
+};
+app.use(Toast, options);
+
 
 app.mount('#app')

@@ -13,9 +13,6 @@
           <li>
             <RouterLink to="/courses" :class="classTab('/courses')">Course</RouterLink>
           </li>
-          <li>
-            <RouterLink to="/enrollments" :class="classTab('/enrollments')">Enrollment</RouterLink>
-          </li>
         </ul>
       </div>
     </div>

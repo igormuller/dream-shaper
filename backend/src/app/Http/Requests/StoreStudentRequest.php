@@ -24,7 +24,7 @@ class StoreStudentRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:students,email',
-            'cpf' => 'required|string|size:11|unique:students,cpf',
+            'cpf' => 'required|string|size:14|unique:students,cpf',
         ];
     }
 }

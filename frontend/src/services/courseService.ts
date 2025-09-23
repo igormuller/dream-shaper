@@ -11,6 +11,11 @@ export async function getCourses(page = 1) {
   return data;
 }
 
+export async function listCursesByStudent(studentId?: number) {
+  const { data } = await api.get(`/courses-by-student/${studentId}`);
+  return data;
+}
+
 export async function getCourseById(id: number) {
   const { data } = await api.get(`/courses/${id}`);
   return data;

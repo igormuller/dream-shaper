@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Course;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,8 +20,8 @@ class EnrollmentResource extends JsonResource
             'student' => new StudentResource($this->student),
             'course' => new CourseResource($this->course),
             'progress_percentage' => $this->progress_percentage,
-            'enrollment_date' => $this->enrollment_date,
-            'completion_date' => $this->completion_date
+            'enrollment_date' => $this->enrollment_date?->format('d/m/Y'),
+            'completion_date' => $this->completion_date?->format('d/m/Y')
         ];
     }
 }

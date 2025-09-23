@@ -18,7 +18,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return response()->json(new CourseCollection(Course::paginate(10)));
+        return response()->json(new CourseCollection(Course::paginate(5)));
     }
 
     /**
@@ -64,8 +64,19 @@ class CourseController extends Controller
         return response()->json(CourseStudentResource::collection($course->students));
     }
 
-    public function enrollStudent(Course $course, Student $student)
+    /**
+     * Display the courses for the specified student.
+     */
+    public function listByStudent(Student $student)
     {
-        //
+        $coursesThisStudent = Course::whereHas('students', function ($query) use ($student) {
+            $query->where('student_id', $student->id);
+        })->get();
+
+        if ($coursesThisStudent->isEmpty()) {
+            return response()->json(CourseResource::collection(Course::all()));
+        }
+        $courses = Course::whereNotIn('id', $coursesThisStudent->pluck('id')->all())->get();
+        return response()->json(CourseResource::collection($courses));
     }
 }

@@ -1,9 +1,7 @@
 <template>
   <div class="p-6">
 
-    <LoadingModal :show="loading" text="Carregando..." />
-
-    <div v-if="!loading" class="block p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+    <div class="block p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
       <h2 class="text-3xl text-gray-900 mb-2">Edição do Curso {{ form.name }}</h2>
       <div class="max-w-sm">
         <div class="mb-5">
@@ -38,14 +36,13 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { getCourseById, updateCourse } from "@/services/courseService";
-import LoadingModal from "@/components/LoadingModal.vue";
 import {  useRouter } from "vue-router";
+import { useUiStore } from "@/stores/ui";
 
-
+const ui = useUiStore();
 const props = defineProps(['id']);
 
 const router = useRouter();
-const loading = ref(false);
 const errors = ref([]);
 const form = ref({
     name: '',
@@ -58,25 +55,24 @@ onMounted(async () => {
     const data = await getCourseById(props.id);
     form.value = data;
   } catch (error) {
-    error.value = "Erro ao carregar cursos";
+    ui.notifyError("Erro ao carregar cursos");
   } finally {
-    loading.value = false;
+    ui.hideLoading();
   }
 });
 
 async function save() {
   errors.value = [];
-  loading.value = true;
+  ui.showLoading();
   try {
-    const response = await updateCourse(props.id, form.value)
-    console.log(response)
-    loading.value = false;
+    await updateCourse(props.id, form.value)
+    ui.notifySuccess("Curso atualizado com sucesso");
     router.push({ name: "courses-list" });
   } catch (error) {
-    console.log(error)
     errors.value = error?.response?.data?.errors
+    ui.notifyError("Erro ao atualizar curso");
   } finally {
-    loading.value = false;
+    ui.hideLoading();
   }
 }
 </script>

@@ -3,13 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreEnrollmentRequest;
+use App\Http\Requests\UpdateEnrollmentRequest;
 use App\Http\Resources\EnrollmentResource;
 use App\Models\Enrollment;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class EnrollmentController extends Controller
 {
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Enrollment $enrollment)
+    {
+        return response()->json(new EnrollmentResource($enrollment));
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -21,8 +30,9 @@ class EnrollmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Enrollment $enrollment)
+    public function update(UpdateEnrollmentRequest $request, Enrollment $enrollment)
     {
-        //
+        $enrollment->update($request->validated());
+        return response()->json(new EnrollmentResource($enrollment));
     }
 }

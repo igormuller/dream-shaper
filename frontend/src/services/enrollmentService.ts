@@ -9,6 +9,11 @@ export interface Enrollment {
   completion_date: string | null;
 }
 
+export async function getEnrollmentById(id: number) {
+  const { data } = await api.get(`/enrollments/${id}`);
+  return data;
+}
+
 export async function createEnrollment(enroll: Omit<Enrollment, "id">) {
   const { data } = await api.post("/enrollments", enroll);
   return data;
