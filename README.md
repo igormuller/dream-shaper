@@ -7,7 +7,7 @@
 - dentro do container executar o comando ```composer install```
 - após executar o comando ```cp .env.example .env```
 - após executar o comanto ```php artisan key:generate```
-- após executar o comando ```php artisan migrate``` responder sim para criar o banco sqlite.
+- após executar o comando ```php artisan migrate --seed``` responder sim para criar o banco sqlite.
 - aqui terminamos a configuração do backend, pode executar o comando ```exit``` para sair do container
 
 # Instalando e subindo o Frontend
