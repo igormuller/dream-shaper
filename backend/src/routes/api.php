@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
@@ -24,3 +25,5 @@ Route::get('courses/{course}/students', [CourseController::class, 'students']);
 Route::get('students/{student}/courses', [StudentController::class, 'courses']);
 Route::get('students-by-course/{course}', [StudentController::class, 'listByCourse']);
 Route::get('courses-by-student/{student}', [CourseController::class, 'listByStudent']);
+Route::get('dashboard/enrollments', [DashboardController::class, 'getEnrollmentsByMonth']);
+Route::get('dashboard/enrollments-by-course', [DashboardController::class, 'getEnrollmentsByCourse']);

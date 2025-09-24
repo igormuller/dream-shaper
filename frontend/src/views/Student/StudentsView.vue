@@ -9,7 +9,7 @@
       </RouterLink>
     </div>
 
-    <div v-if="!loading" class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table-detail
         :list="students"
         :columns="columns"

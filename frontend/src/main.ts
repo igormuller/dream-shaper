@@ -6,7 +6,8 @@ import App from './App.vue'
 import router from './router'
 import { createPinia } from 'pinia';
 import './assets/main.css'
-import "vue-toastification/dist/index.css";
+import "vue-toastification/dist/index.css"; 
+import { Chart as ChartJS, registerables } from 'chart.js';
 
 const app = createApp(App)
 
@@ -16,6 +17,9 @@ app.use(pinia);
 
 // Use the router instance
 app.use(router)
+
+// Registrando globalmente todos os componentes do ChartJS usado no vue-chart-3
+ChartJS.register(...registerables);
 
 // Toastification options
 const options = {
